@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TrungOS - CTV Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="crt-scan"></div>
+<div class="crt-roll"></div>
+<div class="crt-vig"></div>
+<div class="crt-edge"></div>
+<div class="glitch-h" id="gh1"></div>
+<div class="glitch-h" id="gh2"></div>
+<div class="px-flash" id="pxf"></div>
+
+<!-- ===== CTV POWER-ON OVERLAY ===== -->
+<canvas id="ctv-canvas" style="position:fixed;inset:0;z-index:9800;display:block;pointer-events:none;background:#000;width:100%;height:100%;"></canvas>
+
+<!-- ===== START / BOOT (single screen) ===== -->
+<div class="screen active" id="ss">
+  <div class="main">
+    <pre class="ascii-big" id="sa"></pre>
+    <div class="sysinfo" id="si1" style="opacity:0">
+      <div>TrungOS 1.0 Release 5.1</div>
+      <div>Copyright 2026 Trung Technologies</div>
+      <div>All Rights Reserved</div>
+    </div>
+    <div class="sysinfo" id="si2" style="opacity:0">
+      <div>BIOS version 1.2</div>
+      <div>System ID = 8232003</div>
+    </div>
+    <div class="sysinfo" id="si3" style="opacity:0">Build Time: 03/01/26</div>
+    <div id="si4" style="opacity:0">
+      <div class="boot-bar-wrap"><div class="boot-bar" id="bb"></div></div>
+      <div class="boot-label" id="bl">Initializing...</div>
+    </div>
+    <div id="si5" style="opacity:0;display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+      <div class="sysinfo" id="si5-sub"></div>
+      <button class="btn-primary" id="bs-btn" onclick="nav('home')" style="width:fit-content;padding:10px 20px;min-width:0;">ENTER PORTFOLIO</button>
+    </div>
+    <span class="blk-cur"></span>
+  </div>
+  <div class="foot"><p>Press DEL to Cancel or Press &lt;F2&gt; to enter BIOS Setup</p></div>
+</div>
+
+<!-- ===== HOME ===== -->
+<div class="screen" id="screen-home">
+  <div class="inner">
+    <div class="title-row">
+      <pre class="ascii-sm" onclick="nav('home')" style="cursor:pointer;" title="Go Home">
+▄▄▄▄▄▄▄▄▄                      ▄        ▄▄▄▄▄▄▄                       ▄▄       ▄▄
+▀▀▀███▀▀▀                      ▀        ███▀▀███▄              ██    ██        ██ ▀▀
+   ███ ████▄ ██ ██ ████▄ ▄████  ▄█▀▀▀   ███▄▄███▀ ▄███▄ ████▄ ▀██▀▀ ▀██▀ ▄███▄ ██ ██  ▄███▄
+   ███ ██ ▀▀ ██ ██ ██ ██ ██ ██  ▀███▄   ███▀▀▀▀   ██ ██ ██ ▀▀  ██    ██  ██ ██ ██ ██  ██ ██
+   ███ ██    ▀██▀█ ██ ██ ▀████  ▄▄▄█▀   ███       ▀███▀ ██     ██    ██  ▀███▀ ██ ██▄ ▀███▀
+                            ██
+                          ▀▀▀</pre>
+      <div class="navlinks">
+        <span onclick="nav('contact')">Email</span>
+        <span onclick="nav('contact')">LinkedIn</span>
+        <span onclick="nav('games')">Games</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="content">
+      <div class="bio">I'm joining IBM as a Designer on Watson AI, I was previously at Zeme as a Founding Product Designer where I shaped ideas and shipped products that help consumers in the rental market
+
+I worked at 3 different starts-up scaling products from A to B and was featured in TechCrunch Top 200
+
+I graduated from UC Davis with a background in Design, where I developed a curiosity about the importance of design in our everyday lives.</div>
+      <div class="sec-title">SELECTED WORKS</div>
+      <div class="divider-sm" style="margin-bottom:0"></div>
+<a href="https://zeme.io" target="_blank" class="sel-row" onclick="sfx()">
+  &gt; 1. Zeme - Making Renting 100x Faster
+</a>
+
+<a href="https://pillarbiome.com" target="_blank" class="sel-row" onclick="sfx()">
+  &gt; 2. PillarBiome - The Next AI HealthTech Model 
+</a>
+
+<a href="https://expressodavis.org/" target="_blank" class="sel-row" onclick="sfx()">
+  &gt; 3. Expresso - Brewing Warm Connections
+</a>
+    </div>
+  </div>
+  <div class="foot"><p>Build Time: 03/01/26</p><p>System ID = 8232003</p></div>
+</div>
+
+<!-- ===== GAMES ===== -->
+<div class="screen" id="screen-games">
+  <div class="inner">
+    <div class="title-row">
+      <pre class="ascii-sm" onclick="nav('home')" style="cursor:pointer;" title="Go Home">
+▄▄▄▄▄▄▄▄▄                      ▄        ▄▄▄▄▄▄▄                       ▄▄       ▄▄
+▀▀▀███▀▀▀                      ▀        ███▀▀███▄              ██    ██        ██ ▀▀
+   ███ ████▄ ██ ██ ████▄ ▄████  ▄█▀▀▀   ███▄▄███▀ ▄███▄ ████▄ ▀██▀▀ ▀██▀ ▄███▄ ██ ██  ▄███▄
+   ███ ██ ▀▀ ██ ██ ██ ██ ██ ██  ▀███▄   ███▀▀▀▀   ██ ██ ██ ▀▀  ██    ██  ██ ██ ██ ██  ██ ██
+   ███ ██    ▀██▀█ ██ ██ ▀████  ▄▄▄█▀   ███       ▀███▀ ██     ██    ██  ▀███▀ ██ ██▄ ▀███▀
+                            ██
+                          ▀▀▀</pre>
+      <div class="navlinks">
+        <span onclick="nav('contact')">Email</span>
+        <span onclick="nav('contact')">LinkedIn</span>
+        <span class="cur-nav">Games</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="content">
+      <div class="sec-title">GAMES</div>
+      <div class="divider-sm" style="margin-bottom:0"></div>
+      <div class="sel-row" onclick="launchGame('snake')">&gt; Snake Game</div>
+      <div class="sel-row" onclick="launchGame('tetris')">&gt; Tetris</div>
+      <div class="sel-row" onclick="launchGame('connect4')">&gt; Connect 4</div>
+      <div class="more">More Games coming soon!</div>
+    </div>
+  </div>
+  <div class="foot"><p>Build Time: 03/01/26</p><p>System ID = 8232003</p></div>
+</div>
+
+<!-- ===== CONTACT ===== -->
+<div class="screen" id="screen-contact">
+  <div class="inner">
+    <div class="title-row">
+      <pre class="ascii-sm" onclick="nav('home')" style="cursor:pointer;" title="Go Home">
+▄▄▄▄▄▄▄▄▄                      ▄        ▄▄▄▄▄▄▄                       ▄▄       ▄▄
+▀▀▀███▀▀▀                      ▀        ███▀▀███▄              ██    ██        ██ ▀▀
+   ███ ████▄ ██ ██ ████▄ ▄████  ▄█▀▀▀   ███▄▄███▀ ▄███▄ ████▄ ▀██▀▀ ▀██▀ ▄███▄ ██ ██  ▄███▄
+   ███ ██ ▀▀ ██ ██ ██ ██ ██ ██  ▀███▄   ███▀▀▀▀   ██ ██ ██ ▀▀  ██    ██  ██ ██ ██ ██  ██ ██
+   ███ ██    ▀██▀█ ██ ██ ▀████  ▄▄▄█▀   ███       ▀███▀ ██     ██    ██  ▀███▀ ██ ██▄ ▀███▀
+                            ██
+                          ▀▀▀</pre>
+      <div class="navlinks">
+        <span class="cur-nav">Email</span>
+        <span onclick="nav('contact')">LinkedIn</span>
+        <span onclick="nav('games')">Games</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="content">
+      <div class="sec-title">CONTACT ME</div>
+      <div class="divider-sm" style="margin-bottom:16px"></div>
+      <div class="inp-row">
+        <input class="inp" id="ei" type="email" placeholder="Your Email @" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="inp-row">
+        <input class="inp" id="mi" type="text" placeholder="Hi Trung, I think you're a really cool dude." autocomplete="off" spellcheck="false">
+      </div>
+      <div class="sub-row">
+        <button class="btn-primary" style="min-width:193px;font-size:20px;" onclick="doSubmit()">SUBMIT EMAIL</button>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><p>Build Time: 03/01/26</p><p>System ID = 8232003</p></div>
+</div>
+
+<!-- ===== GAME SCREEN ===== -->
+<div id="gs-game">
+  <div class="game-header">
+    <button class="game-back" onclick="exitGame()">&#9664; BACK</button>
+    <span id="game-title" style="font-size:22px;font-weight:600;">SNAKE</span>
+    <span id="game-score" style="margin-left:auto;font-size:18px;"></span>
+  </div>
+  <div class="game-area">
+    <canvas id="game-canvas"></canvas>
+  </div>
+  <div class="game-info" id="game-info"></div>
+</div>
+
+<script src="./script.js"></script>
+</body>
+</html>
